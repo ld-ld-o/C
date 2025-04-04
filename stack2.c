@@ -32,7 +32,7 @@ int main() {
             int n;
             printf("push num : ");
             scanf("%d", &n);
-            push(head, n);
+            push(&head, n);
         }
         else if(m==2){
             if(isEmpty(head)){
@@ -63,13 +63,13 @@ Node* peek(Node* head){
     while(current->next != NULL){
         current=current->next;
     }
-    printf("%d\n",current->num);
+    //printf("%d\n",current->num);
     return current;
 }
 void push(Node** head, int num){
     Node* current = peek(*head);
     Node* nextNode = (Node*)malloc(sizeof(Node));
-    if(isEmpty(head)) head = nextNode;
+    if(isEmpty(*head)) *head = nextNode;
     else current->next = nextNode;
     nextNode->num = num;
 }
@@ -98,6 +98,7 @@ void print(Node* head){
         return;
     }
     while(current->next != NULL){
+	    printf("stack\n");
         printf("%d\n", current->num);
         current = current->next;
     }

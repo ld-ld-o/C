@@ -1,0 +1,12 @@
+set nu
+set hisearch
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set nobackup
+set nowrritebackup
+set noswapfile
+set cindent
+syntax on
