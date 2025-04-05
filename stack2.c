@@ -50,6 +50,13 @@ int main() {
             break; 
         }
     }
+    Node * current =head->next;
+    while(current!=NULL){
+        free(head);
+        head=current;
+        current=head->next;
+    }
+    
     
     
     return 0;
@@ -97,12 +104,14 @@ void print(Node* head){
         printf("NULL\n");
         return;
     }
-    while(current->next != NULL){
-	    printf("stack\n");
+    else
+    { 
+        printf("stack\n");
+        while(current->next != NULL){
+            printf("%d\n", current->num);
+            current = current->next;
+        }
         printf("%d\n", current->num);
-        current = current->next;
     }
-    printf("%d\n", current->num);
-
     return;
 }
