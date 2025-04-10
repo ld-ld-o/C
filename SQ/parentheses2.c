@@ -2,11 +2,12 @@
 
 int main(void){
     while(1){
-        char[100] stack = {0};
+        char stack[100] = {0};
         char c;
         int top=0;
+        int stopSwitch = 0;
         for(int i = 0 ; i<100;i++){
-            scanf("%",&c);
+            scanf("%c",&c);
             if(c=='.'){
                 if(i==0)stopSwitch = 1; 
                 break;
