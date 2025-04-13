@@ -7,7 +7,7 @@ typedef struct Queue{
     int* q;
 }Queue;
 int divideIns(char* ins);
-void push(char* ins, Queue* queue);
+void push(int ins, Queue* queue);
 int pop(Queue* queue);
 int size(Queue* queue);
 int empty(Queue* queue);
@@ -28,8 +28,9 @@ int main(void){
         tok = strtok(ins," \n");
         switch(divideIns(tok)){
             case 1:
-                tok = strtok(ins," \n");
-                push(tok,queue);
+                int i;
+                scanf("%d",&i);
+                push(i,queue);
                 break;
             case 2:
                 printf("%d\n",pop(queue));
@@ -46,6 +47,8 @@ int main(void){
             case 6:
                 printf("%d\n",back(queue));
                 break;
+            case 0:
+                printf("Error\n");
             default:
                 break;
         }
@@ -53,19 +56,20 @@ int main(void){
     return 0;
 }
 int divideIns(char* ins){
-    if(strcmp(ins,"push")) return 1;
-    else if(strcmp(ins,"pop")) return 2;
-    else if(strcmp(ins,"size")) return 3;
-    else if(strcmp(ins,"empty")) return 4;
-    else if(strcmp(ins,"front")) return 5;
-    else if(strcmp(ins,"back")) return 6;
+    if(strcmp(ins,"push")==0) return 1;
+    else if(strcmp(ins,"pop")==0) return 2;
+    else if(strcmp(ins,"size")==0) return 3;
+    else if(strcmp(ins,"empty")==0) return 4;
+    else if(strcmp(ins,"front")==0) return 5;
+    else if(strcmp(ins,"back")==0) return 6;
     return 0;
 }
-void push(char* ins, Queue* queue){
-    queue->q[queue->rear++]=atoi(ins);
+void push(int ins, Queue* queue){
+    queue->q[queue->rear++]=ins;
     return;
 }
 int pop(Queue* queue){
+    if(empty(queue)) return -1;
     int n = queue->q[queue->head];
     queue->q[queue->head++] = 0;
     return n;
@@ -78,8 +82,10 @@ int empty(Queue* queue){
     else return 0;
 }
 int front(Queue* queue){
+    if(empty(queue)) return -1;
     return queue->q[queue->head];
 }
 int back(Queue* queue){
-    return queue->q[queue->rear];
+    if(empty(queue)) return -1;
+    return queue->q[queue->rear-1];
 }
