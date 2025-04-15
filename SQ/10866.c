@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
 typedef struct Deque{
@@ -8,8 +8,10 @@ typedef struct Deque{
     int n;
 }Deque;
 int divideIns(char* ins);
-void push(int ins, Deque* deque);
-int pop(Deque* deque);
+void push_front(int ins, Deque* deque);
+void push_back(int ins, Deque* deque);
+int pop_front(Deque* deque);
+int pop_back(Deque* deque);
 int size(Deque* deque);
 int empty(Deque* deque);
 int front(Deque* deque);
@@ -22,22 +24,22 @@ int main(void){
     scanf("%d",&n);
     Deque* deque = (Deque*)malloc(sizeof(Deque));
     deque->q = (int*)malloc(sizeof(int)*n);
-    deque->head = 0;
-    deque->rear = 0;
+    deque->head = n;
+    deque->rear = n+1;
     deque->n = n;
     for(int i = 0 ; i < n ; i++){
         scanf("%s",ins);
         tok = strtok(ins," \n");
         switch(divideIns(tok)){
             case 1:
-                int i;
-                scanf("%d",&i);
-                push_front(i,deque);
+                int j;
+                scanf("%d",&j);
+                push_front(j,deque);
                 break;
             case 2:
-                int i;
-                scanf("%d",&i);
-                push_back(i,deque);
+                int r;
+                scanf("%d",&r);
+                push_back(r,deque);
                 break;
             case 3:
                 printf("%d\n",pop_front(deque));
@@ -77,8 +79,8 @@ int divideIns(char* ins){
     return 0;
 }
 void push_front(int ins, Deque* deque){
-    deque->q[deque->rear%deque->n]=ins;
-    deque->rear++;
+    deque->q[deque->head%deque->n]=ins;
+    deque->head--;
     return;
 }
 void push_back(int ins, Deque* deque){
@@ -88,28 +90,26 @@ void push_back(int ins, Deque* deque){
 }
 int pop_front(Deque* deque){
     if(empty(deque)) return -1;
-    int n = deque->q[deque->head%deque->n];
-    deque->q[deque->head++] = 0;
+    int n = deque->q[(++deque->head)%deque->n];
     return n;
 }
 int pop_back(Deque* deque){
     if(empty(deque)) return -1;
-    int n = deque->q[deque->head%deque->n];
-    deque->q[deque->head++] = 0;
+    int n = deque->q[(--deque->rear)%deque->n];
     return n;
 }
 int size(Deque* deque){
-    return(deque->rear-deque->head);
+    return(deque->rear-deque->head-1);
 }
 int empty(Deque* deque){
-    if(deque->head==deque->rear) return 1;
+    if(deque->rear-deque->head==1) return 1;
     else return 0;
 }
 int front(Deque* deque){
     if(empty(deque)) return -1;
-    return deque->q[deque->head];
+    return deque->q[(deque->head+1)%deque->n];
 }
 int back(Deque* deque){
     if(empty(deque)) return -1;
-    return deque->q[deque->rear-1];
+    return deque->q[(deque->rear-1)%deque->n];
 }
