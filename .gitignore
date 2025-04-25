@@ -1,0 +1,10 @@
+.cache/
+.config/
+.local/
+snap/
+다운로드/
+
+#.log
+#.tmp
+.DS_Store
+
